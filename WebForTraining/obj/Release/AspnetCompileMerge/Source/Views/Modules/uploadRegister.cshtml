@@ -1,0 +1,45 @@
+﻿@using WebForTraining.Models;
+@using WebForTraining.Database;
+@{
+    Layout = null;
+   
+    var UserID = int.Parse(Session["UserID"].ToString());
+    List<ClsUserDisplay> userDisplay = new List<ClsUserDisplay>();
+    using (tdoEntities db = new tdoEntities()) {
+        userDisplay = db.uspGetUserDisplay(UserID).ToList<ClsUserDisplay>();
+    }
+    List<string> viewableForms = Restriction.GetViewableForms(userDisplay);
+}
+
+@if (!viewableForms.Contains("UploadRegister")) {
+    <div class="alert alert-warning">You are not authorized to view this form.</div>
+    return;
+}
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <h2><i class="fa fa-bars"></i> Upload Register </h2>
+    <form id="RegisterUpload" name="RegisterUpload" class="form" action="/Modules/uploadRegisterData" method="post" enctype="multipart/form-data">
+        <div class="form-group" style="width:800px;">
+            <div class="" style="float:left">
+                @*<label class="control-label" for="attachmentFile">Attachment:</label>*@
+                <input type="file" id="attachmentFile" name="attachmentFile" class="form-control required">
+            </div>
+            <div class="" style="float:left">
+                <button type="submit" class="btn btn-primary btn-flat" id="upReg">Upload</button>
+            </div>
+        </div>
+    </form>
+    <div id="display">
+
+    </div>
+</div>
+<script>
+    add_validation($("form[name='RegisterUpload']"), function (responseText) {
+        $("#display").html(loading);
+        $("#display").html(responseText);
+    });
+
+</script>
+
+
+

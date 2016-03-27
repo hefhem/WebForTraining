@@ -287,6 +287,26 @@
     <FunctionImport Name="uspGetPort" ReturnType="Collection(tdoModel.ClsPort)" />
     <FunctionImport Name="uspGetTerminal" ReturnType="Collection(tdoModel.ClsTerminal)" />
     <FunctionImport Name="uspGetTruck" ReturnType="Collection(tdoModel.ClsTruck)" />
+    <FunctionImport Name="uspUploadRegister" ReturnType="Collection(tdoModel.ClsUploadRegister)">
+      <Parameter Name="jobNumber" Mode="In" Type="String" />
+      <Parameter Name="dateReceived" Mode="In" Type="DateTime" />
+      <Parameter Name="expiryDate" Mode="In" Type="DateTime" />
+      <Parameter Name="status" Mode="In" Type="String" />
+      <Parameter Name="cargoType" Mode="In" Type="String" />
+      <Parameter Name="fileRef" Mode="In" Type="String" />
+      <Parameter Name="destination" Mode="In" Type="String" />
+      <Parameter Name="terminal" Mode="In" Type="String" />
+      <Parameter Name="containerNo" Mode="In" Type="String" />
+      <Parameter Name="returnTerminal" Mode="In" Type="String" />
+      <Parameter Name="truck" Mode="In" Type="String" />
+      <Parameter Name="tdoReceiptDate" Mode="In" Type="DateTime" />
+      <Parameter Name="schDelDate" Mode="In" Type="DateTime" />
+      <Parameter Name="loadingTime" Mode="In" Type="DateTime" />
+      <Parameter Name="dispatchTime" Mode="In" Type="DateTime" />
+      <Parameter Name="remarks" Mode="In" Type="String" />
+      <Parameter Name="createdByID" Mode="In" Type="Int32" />
+      <Parameter Name="sessionID" Mode="In" Type="Guid" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="ClsReturnValues">
     <Property Type="Int32" Name="ID" Nullable="true" />
@@ -563,5 +583,25 @@
     <Property Type="Int32" Name="createdByID" Nullable="true" />
     <Property Type="Guid" Name="sessionID" Nullable="true" />
     <Property Type="String" Name="userName" Nullable="false" MaxLength="255" />
+  </ComplexType>
+  <ComplexType Name="ClsUploadRegister">
+    <Property Type="String" Name="jobNumber" Nullable="true" MaxLength="30" />
+    <Property Type="DateTime" Name="dateReceived" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="expiryDate" Nullable="true" Precision="23" />
+    <Property Type="String" Name="status" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="cargoType" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="fileRef" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="destination" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="terminal" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="containerNo" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="returnTerminal" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="truck" Nullable="true" MaxLength="20" />
+    <Property Type="DateTime" Name="tdoReceiptDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="schDelDate" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="loadingTime" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="dispatchTime" Nullable="true" Precision="23" />
+    <Property Type="String" Name="remarks" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="response" Nullable="true" />
+    <Property Type="Boolean" Name="isSuccess" Nullable="true" />
   </ComplexType>
 </Schema>

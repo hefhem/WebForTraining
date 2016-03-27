@@ -1034,5 +1034,82 @@ namespace WebForTraining.Database
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ClsTruck>("uspGetTruck");
         }
+    
+        public virtual ObjectResult<ClsUploadRegister> uspUploadRegister(string jobNumber, Nullable<System.DateTime> dateReceived, Nullable<System.DateTime> expiryDate, string status, string cargoType, string fileRef, string destination, string terminal, string containerNo, string returnTerminal, string truck, Nullable<System.DateTime> tdoReceiptDate, Nullable<System.DateTime> schDelDate, Nullable<System.DateTime> loadingTime, Nullable<System.DateTime> dispatchTime, string remarks, Nullable<int> createdByID, Nullable<System.Guid> sessionID)
+        {
+            var jobNumberParameter = jobNumber != null ?
+                new ObjectParameter("jobNumber", jobNumber) :
+                new ObjectParameter("jobNumber", typeof(string));
+    
+            var dateReceivedParameter = dateReceived.HasValue ?
+                new ObjectParameter("dateReceived", dateReceived) :
+                new ObjectParameter("dateReceived", typeof(System.DateTime));
+    
+            var expiryDateParameter = expiryDate.HasValue ?
+                new ObjectParameter("expiryDate", expiryDate) :
+                new ObjectParameter("expiryDate", typeof(System.DateTime));
+    
+            var statusParameter = status != null ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(string));
+    
+            var cargoTypeParameter = cargoType != null ?
+                new ObjectParameter("cargoType", cargoType) :
+                new ObjectParameter("cargoType", typeof(string));
+    
+            var fileRefParameter = fileRef != null ?
+                new ObjectParameter("fileRef", fileRef) :
+                new ObjectParameter("fileRef", typeof(string));
+    
+            var destinationParameter = destination != null ?
+                new ObjectParameter("destination", destination) :
+                new ObjectParameter("destination", typeof(string));
+    
+            var terminalParameter = terminal != null ?
+                new ObjectParameter("terminal", terminal) :
+                new ObjectParameter("terminal", typeof(string));
+    
+            var containerNoParameter = containerNo != null ?
+                new ObjectParameter("containerNo", containerNo) :
+                new ObjectParameter("containerNo", typeof(string));
+    
+            var returnTerminalParameter = returnTerminal != null ?
+                new ObjectParameter("returnTerminal", returnTerminal) :
+                new ObjectParameter("returnTerminal", typeof(string));
+    
+            var truckParameter = truck != null ?
+                new ObjectParameter("truck", truck) :
+                new ObjectParameter("truck", typeof(string));
+    
+            var tdoReceiptDateParameter = tdoReceiptDate.HasValue ?
+                new ObjectParameter("tdoReceiptDate", tdoReceiptDate) :
+                new ObjectParameter("tdoReceiptDate", typeof(System.DateTime));
+    
+            var schDelDateParameter = schDelDate.HasValue ?
+                new ObjectParameter("schDelDate", schDelDate) :
+                new ObjectParameter("schDelDate", typeof(System.DateTime));
+    
+            var loadingTimeParameter = loadingTime.HasValue ?
+                new ObjectParameter("loadingTime", loadingTime) :
+                new ObjectParameter("loadingTime", typeof(System.DateTime));
+    
+            var dispatchTimeParameter = dispatchTime.HasValue ?
+                new ObjectParameter("dispatchTime", dispatchTime) :
+                new ObjectParameter("dispatchTime", typeof(System.DateTime));
+    
+            var remarksParameter = remarks != null ?
+                new ObjectParameter("remarks", remarks) :
+                new ObjectParameter("remarks", typeof(string));
+    
+            var createdByIDParameter = createdByID.HasValue ?
+                new ObjectParameter("createdByID", createdByID) :
+                new ObjectParameter("createdByID", typeof(int));
+    
+            var sessionIDParameter = sessionID.HasValue ?
+                new ObjectParameter("sessionID", sessionID) :
+                new ObjectParameter("sessionID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ClsUploadRegister>("uspUploadRegister", jobNumberParameter, dateReceivedParameter, expiryDateParameter, statusParameter, cargoTypeParameter, fileRefParameter, destinationParameter, terminalParameter, containerNoParameter, returnTerminalParameter, truckParameter, tdoReceiptDateParameter, schDelDateParameter, loadingTimeParameter, dispatchTimeParameter, remarksParameter, createdByIDParameter, sessionIDParameter);
+        }
     }
 }

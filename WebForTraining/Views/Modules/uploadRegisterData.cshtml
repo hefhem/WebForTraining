@@ -1,0 +1,38 @@
+﻿@using WebForTraining.Models;
+@using WebForTraining.Database;
+@model List<ClsUploadRegister>
+@{
+    Layout = null;
+    }
+
+    <div class="table-resposive">
+
+        <table class="table table-striped responsive-utilities jambo_table dataTables" id="tblRegister">
+            <thead>
+                <tr>
+                    <th width="130px">Job Number</th>
+                    <th width="130px">Date Received</th>
+                    @*<th width="130px">Expiry Date</th>*@
+                    <th>File Ref</th>
+                    <th>Status</th>
+                    <th>Response</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model) {
+                    <tr>
+                        <td><span class="underline">@item.jobNumber</span></td>
+                        <td><span class="underline">@(String.Format("{0:dd-MM-yyyy}",item.dateReceived))</span></td>
+                        @*<td><span class="underline">@(String.Format("{0:dd-MM-yyyy}",item.expiryDate))</span></td>*@
+                        <td><span class="underline">@item.fileRef</span></td>
+                        <td><span class="underline">@(item.isSuccess == true ? "Processed" : "Failed")</span></td>
+                        <td><span class="underline">@item.response</span></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+<script>
+    styleTable('tblRegister');
+</script>

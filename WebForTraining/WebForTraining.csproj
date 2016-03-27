@@ -39,6 +39,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Excel, Version=2.1.2.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -219,6 +227,9 @@
     <Compile Include="Database\ClsTruckType.cs">
       <DependentUpon>TDOModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\ClsUploadRegister.cs">
+      <DependentUpon>TDOModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Database\ClsUserDisplay.cs">
       <DependentUpon>TDOModel.tt</DependentUpon>
     </Compile>
@@ -255,6 +266,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Administration.cs" />
     <Compile Include="Models\Auction.cs" />
+    <Compile Include="Models\ExcelReader.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Modules.cs" />
@@ -383,6 +395,8 @@
     <Content Include="css\normalize.css" />
     <Content Include="css\nprogress.css" />
     <Content Include="css\progressbar\bootstrap-progressbar-3.3.0.css" />
+    <Content Include="css\responsive.jqueryui.css" />
+    <Content Include="css\responsive.jqueryui.min.css" />
     <Content Include="css\select\select2.min.css" />
     <Content Include="css\switchery\switchery.min.css" />
     <Content Include="fonts\css\font-awesome.css" />
@@ -938,7 +952,11 @@
     <Content Include="js\icheck\icheck.min.js" />
     <Content Include="js\input_mask\jquery.inputmask.js" />
     <Content Include="js\ion_range\ion.rangeSlider.min.js" />
+    <Content Include="js\jquery-ui-1.10.3.custom.min.js" />
+    <Content Include="js\jquery-ui-timepicker-addon.js" />
     <Content Include="js\jquery.min.js" />
+    <Content Include="js\jquery.ui\jquery-ui.js" />
+    <Content Include="js\jscripts.js" />
     <Content Include="js\knob\jquery.knob.min.js" />
     <Content Include="js\maps\gdp-data.js" />
     <Content Include="js\maps\jquery-jvectormap-2.0.1.min.js" />
@@ -970,6 +988,8 @@
     <Content Include="js\switchery\switchery.min.js" />
     <Content Include="js\tags\jquery.tagsinput.min.js" />
     <Content Include="js\textarea\autosize.min.js" />
+    <Content Include="js\timepicker\jquery.timepicker.css" />
+    <Content Include="js\timepicker\jquery.timepicker.min.js" />
     <Content Include="js\validator\validator.js" />
     <Content Include="js\wizard\jquery.smartWizard.js" />
     <Content Include="less\custom.css" />
@@ -1142,9 +1162,24 @@
     <Content Include="Views\Modules\getRegisterDisplay.cshtml" />
     <Content Include="Views\Modules\getRegisterDisplayForDispatch.cshtml" />
     <Content Include="Views\Administration\Dashboard.cshtml" />
+    <Content Include="Views\Modules\uploadRegister.cshtml" />
+    <Content Include="Views\Administration\AddEditLocation.cshtml" />
+    <Content Include="Views\Administration\AddEditPort.cshtml" />
+    <Content Include="Views\Administration\AddEditTerminal.cshtml" />
+    <Content Include="Views\Administration\AddEditTruck.cshtml" />
+    <Content Include="Views\Administration\getLocationDisplay.cshtml" />
+    <Content Include="Views\Administration\getPortDisplay.cshtml" />
+    <Content Include="Views\Administration\getTerminalDisplay.cshtml" />
+    <Content Include="Views\Administration\getTruckDisplay.cshtml" />
+    <Content Include="Views\Modules\getUploadRegisterDisplay.cshtml" />
+    <Content Include="Views\Modules\uploadRegisterData.cshtml" />
+    <Content Include="Template\Register.xls" />
+    <Content Include="Template\Register2.xls" />
+    <Content Include="Template\Register3.xls" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="tempUpload\" />
     <Folder Include="Views\Account\" />
     <Folder Include="Views\Setup\" />
   </ItemGroup>

@@ -729,5 +729,29 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="uspUploadRegister" FunctionName="tdoModel.Store.uspUploadRegister">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="tdoModel.ClsUploadRegister">
+          <ScalarProperty Name="jobNumber" ColumnName="jobNumber" />
+          <ScalarProperty Name="dateReceived" ColumnName="dateReceived" />
+          <ScalarProperty Name="expiryDate" ColumnName="expiryDate" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="cargoType" ColumnName="cargoType" />
+          <ScalarProperty Name="fileRef" ColumnName="fileRef" />
+          <ScalarProperty Name="destination" ColumnName="destination" />
+          <ScalarProperty Name="terminal" ColumnName="terminal" />
+          <ScalarProperty Name="containerNo" ColumnName="containerNo" />
+          <ScalarProperty Name="returnTerminal" ColumnName="returnTerminal" />
+          <ScalarProperty Name="truck" ColumnName="truck" />
+          <ScalarProperty Name="tdoReceiptDate" ColumnName="tdoReceiptDate" />
+          <ScalarProperty Name="schDelDate" ColumnName="schDelDate" />
+          <ScalarProperty Name="loadingTime" ColumnName="loadingTime" />
+          <ScalarProperty Name="dispatchTime" ColumnName="dispatchTime" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="response" ColumnName="response" />
+          <ScalarProperty Name="isSuccess" ColumnName="isSuccess" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

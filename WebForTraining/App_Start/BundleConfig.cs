@@ -23,13 +23,17 @@ namespace WebForTraining
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
-
+            
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/js/bootstrap.min.js",
+                      "~/js/jquery.ui/jquery-ui.js",
+                      "~/js/jquery-ui-timepicker-addon.js",
+                      "~/js/jquery-ui-1.10.3.custom.min.js",
                        "~/js/nicescroll/jquery.nicescroll.min.js",
                        "~/js/notify/pnotify.core.js",
                        "~/js/notify/pnotify.buttons.js",
                        "~/js/notify/pnotify.nonblock.js",
+                       "~/js/jscripts.js",
                        "~/js/myScript.js",
                        "~/js/icheck/icheck.min.js",
                         "~/js/custom.js",
@@ -43,6 +47,8 @@ namespace WebForTraining
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/css/bootstrap.min.css",
                       "~/css/custom.css",
+                      "~/css/responsive.jqueryui.css",
+                      "~/css/responsive.jqueryui.min.css",
                       "~/fonts/css/font-awesome.min.css",
                       "~/css/animate.min.css",
                       "~/less/custom.css",

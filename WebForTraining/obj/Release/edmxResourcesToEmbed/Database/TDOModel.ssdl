@@ -279,6 +279,26 @@
   <Function Name="uspGetUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="uspGetUserSessionHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="uspGetUserSessions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="uspUploadRegister" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="jobNumber" Type="varchar" Mode="In" />
+    <Parameter Name="dateReceived" Type="datetime" Mode="In" />
+    <Parameter Name="expiryDate" Type="datetime" Mode="In" />
+    <Parameter Name="status" Type="varchar" Mode="In" />
+    <Parameter Name="cargoType" Type="varchar" Mode="In" />
+    <Parameter Name="fileRef" Type="varchar" Mode="In" />
+    <Parameter Name="destination" Type="varchar" Mode="In" />
+    <Parameter Name="terminal" Type="varchar" Mode="In" />
+    <Parameter Name="containerNo" Type="varchar" Mode="In" />
+    <Parameter Name="returnTerminal" Type="varchar" Mode="In" />
+    <Parameter Name="truck" Type="varchar" Mode="In" />
+    <Parameter Name="tdoReceiptDate" Type="datetime" Mode="In" />
+    <Parameter Name="schDelDate" Type="datetime" Mode="In" />
+    <Parameter Name="loadingTime" Type="datetime" Mode="In" />
+    <Parameter Name="dispatchTime" Type="datetime" Mode="In" />
+    <Parameter Name="remarks" Type="varchar" Mode="In" />
+    <Parameter Name="createdByID" Type="int" Mode="In" />
+    <Parameter Name="sessionID" Type="uniqueidentifier" Mode="In" />
+  </Function>
   <Function Name="uspUserAuthentication" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="userName" Type="varchar" Mode="In" />
     <Parameter Name="password" Type="varchar(max)" Mode="In" />

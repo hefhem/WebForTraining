@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -51,6 +52,12 @@ namespace WebForTraining.Controllers
             }
             return View();
         }
+        public ActionResult uploadRegister() {
+            if (!CheckSession()) {
+                return RedirectToAction("Index", "Login");
+            }
+            return View();
+        }
         public ActionResult getRegisterDisplay()
         {
             if (!CheckSession())
@@ -67,6 +74,7 @@ namespace WebForTraining.Controllers
             }
             return View();
         }
+        
         public JsonResult setRegister(string tdoRegisterID, string jobNumber,string dateReceived,string expiryDate,string status,string cargoTypeID,string fileRef,
                                         string destinationID,string terminalID,string containerNo, string returnTerminal,string truckID,string tdoReceiptDate,string schDelDate,
                                           string remarks,string createdByID,string sessionID)
@@ -216,6 +224,45 @@ namespace WebForTraining.Controllers
             }
 
             return Json(new { id = isSuccess ? 1 : 0, isSuccess = isSuccess ? 1 : 0, msg = message });
+        }
+        public ViewResult uploadRegisterData() {
+            
+            Guid cSession = new Guid(GetSession());
+            var r = new List<UploadFilesResult>();
+            if (Session["sesTmpFile"] != null) Utility.deleteFile(Session["sesTmpFile"].ToString());
+            string savedFileName = "", extension = ""; Random rnd = new Random();
+
+            foreach (string file in Request.Files) {
+                
+                HttpPostedFileBase hpf = Request.Files[file] as HttpPostedFileBase;
+                if (hpf.ContentLength == 0) continue;
+                extension = Path.GetExtension(hpf.FileName);
+                savedFileName = Server.MapPath("~/tempUpload/tmp_" + rnd.Next(1, 999999).ToString() + extension);
+                Session["sesTmpFile"] = savedFileName;
+                hpf.SaveAs(savedFileName);
+                //r.Add(new UploadFilesResult() {
+                //    FilePreviousName = hpf.FileName,
+                //    Length = hpf.ContentLength,
+                //    Type = hpf.ContentType,
+                //    FileNewName = Path.GetFileName(savedFileName)
+                //});
+            }
+            List<ClsUploadRegister> lst = ExcelReader.getRegisterFromExcel(savedFileName, GetID(), cSession).ToList();
+            return View(lst);
+        }
+    }
+
+    public class UploadFilesResult {
+        public string FilePreviousName { get; set; }
+        public string FileNewName { get; set; }
+        public int Length { get; set; }
+        public string Type { get; set; }
+
+
+    }
+    public class Utility {
+        public static void deleteFile(string dirFileName) {
+            try { if (File.Exists(dirFileName)) File.Delete(dirFileName); } catch { }
         }
     }
 }

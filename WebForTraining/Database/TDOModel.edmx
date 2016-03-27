@@ -284,6 +284,26 @@
         <Function Name="uspGetUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="uspGetUserSessionHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="uspGetUserSessions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="uspUploadRegister" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="jobNumber" Type="varchar" Mode="In" />
+          <Parameter Name="dateReceived" Type="datetime" Mode="In" />
+          <Parameter Name="expiryDate" Type="datetime" Mode="In" />
+          <Parameter Name="status" Type="varchar" Mode="In" />
+          <Parameter Name="cargoType" Type="varchar" Mode="In" />
+          <Parameter Name="fileRef" Type="varchar" Mode="In" />
+          <Parameter Name="destination" Type="varchar" Mode="In" />
+          <Parameter Name="terminal" Type="varchar" Mode="In" />
+          <Parameter Name="containerNo" Type="varchar" Mode="In" />
+          <Parameter Name="returnTerminal" Type="varchar" Mode="In" />
+          <Parameter Name="truck" Type="varchar" Mode="In" />
+          <Parameter Name="tdoReceiptDate" Type="datetime" Mode="In" />
+          <Parameter Name="schDelDate" Type="datetime" Mode="In" />
+          <Parameter Name="loadingTime" Type="datetime" Mode="In" />
+          <Parameter Name="dispatchTime" Type="datetime" Mode="In" />
+          <Parameter Name="remarks" Type="varchar" Mode="In" />
+          <Parameter Name="createdByID" Type="int" Mode="In" />
+          <Parameter Name="sessionID" Type="uniqueidentifier" Mode="In" />
+        </Function>
         <Function Name="uspUserAuthentication" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userName" Type="varchar" Mode="In" />
           <Parameter Name="password" Type="varchar(max)" Mode="In" />
@@ -404,7 +424,7 @@
             <Parameter Name="formID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="uspGetCity" ReturnType="Collection(tdoModel.ClsCity)">
-            <Parameter Name="cityID" Mode="In" Type="Int32" />
+          <Parameter Name="cityID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="uspAddEditTruckType" ReturnType="Collection(tdoModel.ClsReturnValues)">
             <Parameter Name="truckTypeID" Mode="In" Type="Int32" />
@@ -583,6 +603,26 @@
           <FunctionImport Name="uspGetPort" ReturnType="Collection(tdoModel.ClsPort)" />
           <FunctionImport Name="uspGetTerminal" ReturnType="Collection(tdoModel.ClsTerminal)" />
           <FunctionImport Name="uspGetTruck" ReturnType="Collection(tdoModel.ClsTruck)" />
+          <FunctionImport Name="uspUploadRegister" ReturnType="Collection(tdoModel.ClsUploadRegister)">
+            <Parameter Name="jobNumber" Mode="In" Type="String" />
+            <Parameter Name="dateReceived" Mode="In" Type="DateTime" />
+            <Parameter Name="expiryDate" Mode="In" Type="DateTime" />
+            <Parameter Name="status" Mode="In" Type="String" />
+            <Parameter Name="cargoType" Mode="In" Type="String" />
+            <Parameter Name="fileRef" Mode="In" Type="String" />
+            <Parameter Name="destination" Mode="In" Type="String" />
+            <Parameter Name="terminal" Mode="In" Type="String" />
+            <Parameter Name="containerNo" Mode="In" Type="String" />
+            <Parameter Name="returnTerminal" Mode="In" Type="String" />
+            <Parameter Name="truck" Mode="In" Type="String" />
+            <Parameter Name="tdoReceiptDate" Mode="In" Type="DateTime" />
+            <Parameter Name="schDelDate" Mode="In" Type="DateTime" />
+            <Parameter Name="loadingTime" Mode="In" Type="DateTime" />
+            <Parameter Name="dispatchTime" Mode="In" Type="DateTime" />
+            <Parameter Name="remarks" Mode="In" Type="String" />
+            <Parameter Name="createdByID" Mode="In" Type="Int32" />
+            <Parameter Name="sessionID" Mode="In" Type="Guid" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="ClsReturnValues">
           <Property Type="Int32" Name="ID" Nullable="true" />
@@ -859,6 +899,26 @@
           <Property Type="Int32" Name="createdByID" Nullable="true" />
           <Property Type="Guid" Name="sessionID" Nullable="true" />
           <Property Type="String" Name="userName" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="ClsUploadRegister">
+          <Property Type="String" Name="jobNumber" Nullable="true" MaxLength="30" />
+          <Property Type="DateTime" Name="dateReceived" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="expiryDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="status" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="cargoType" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="fileRef" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="destination" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="terminal" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="containerNo" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="returnTerminal" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="truck" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="tdoReceiptDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="schDelDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="loadingTime" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="dispatchTime" Nullable="true" Precision="23" />
+          <Property Type="String" Name="remarks" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="response" Nullable="true" />
+          <Property Type="Boolean" Name="isSuccess" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1591,6 +1651,30 @@
                 <ScalarProperty Name="createdByID" ColumnName="createdByID" />
                 <ScalarProperty Name="sessionID" ColumnName="sessionID" />
                 <ScalarProperty Name="userName" ColumnName="userName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="uspUploadRegister" FunctionName="tdoModel.Store.uspUploadRegister">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="tdoModel.ClsUploadRegister">
+                <ScalarProperty Name="jobNumber" ColumnName="jobNumber" />
+                <ScalarProperty Name="dateReceived" ColumnName="dateReceived" />
+                <ScalarProperty Name="expiryDate" ColumnName="expiryDate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="cargoType" ColumnName="cargoType" />
+                <ScalarProperty Name="fileRef" ColumnName="fileRef" />
+                <ScalarProperty Name="destination" ColumnName="destination" />
+                <ScalarProperty Name="terminal" ColumnName="terminal" />
+                <ScalarProperty Name="containerNo" ColumnName="containerNo" />
+                <ScalarProperty Name="returnTerminal" ColumnName="returnTerminal" />
+                <ScalarProperty Name="truck" ColumnName="truck" />
+                <ScalarProperty Name="tdoReceiptDate" ColumnName="tdoReceiptDate" />
+                <ScalarProperty Name="schDelDate" ColumnName="schDelDate" />
+                <ScalarProperty Name="loadingTime" ColumnName="loadingTime" />
+                <ScalarProperty Name="dispatchTime" ColumnName="dispatchTime" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="response" ColumnName="response" />
+                <ScalarProperty Name="isSuccess" ColumnName="isSuccess" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
